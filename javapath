@@ -1,0 +1,2 @@
+export JAVA_HOME="/cygdrive/c/PROGRA~1/Java/jdk-14.0.2"
+export PATH="$JAVA_HOME/bin:$PATH"

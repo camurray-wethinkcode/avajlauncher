@@ -1,0 +1,72 @@
+UML Diagram Breakdown:
+
+Class: AircraftFactory (of type string)
+also contains:
+name as string
+longitude as int
+latitude as int
+height as int
+talks to the Flyable Interface
+
+Interface: Flyable (keeps a collection of abstract references tp methods together so classes can use this interface to inherit the abstract methods from it
+collects for inheritance (hence the dotted lines):
+updateConditions() function (of type void)
+registerTower(WeatherTower: WeatherTower) function (of type void)
+both functions must be present in each of our aeroplane files (baloon, helicopter and jetplane)
+
+Class: Helicopter (inherits from weatherTower: WeatherTower)
+also contains:
+name as string
+coordinates as class Coordinates
+the two functions liked to the interface Flyable to pass information through (hence them being type void)
+
+Class: JetPlane (inherits from weatherTower: WeatherTower)
+also contains:
+name as string
+coordinates as class Coordinates
+the two functions liked to the interface Flyable to pass information through (hence them being type void)
+
+Class: Baloon (inherits from weatherTower: WeatherTower)
+also contains:
+name as string
+coordinates as class Coordinates
+the two functions liked to the interface Flyable to pass information through (hence them being type void)
+
+Class: Aircraft (the three aircraft classes above feed information into this one)
+also contains:
+(unique) id as long
+name as string
+coordinates as class Coordinates
+idCounter as long
+Aircraft function to collect names as strings and coordinates as Coordinates class
+nextId() as long function for looping using idCounter
+this class also receives information from Coordinates class described below
+
+Class: Coordinates (passes coordinates to Aircraft class for each aircraft)
+also contains:
+longitude as int
+latitude as int
+height as int
+Coordinates function that uses get functions to retrieve each of the three values for each aircraft
+
+Class: WeatherProvider (must be recursive)
+also contains:
+weather as a string with the 4 different options
+a string is an array and using an index and a randomizer we can shuffle the weather selected on each recursive loop of this function
+this chosen weather is then providedd through two functions to WeatherTower class mentioned below
+getProvider() functions using WeatherProvider class
+and getCurrentWeather(coordinates: Coordinates) as a string
+
+Class: WeatherTower (talks between WeatherProvider and Tower classes)
+also contains:
+getWeather(coordinates: Coordinates) function as string similar to getCurrentWeather mentioned above
+changeWeather() function as void to trigger the recursive behaviour of WeatherProvider to randomly select a different weather on each new simulation run
+this class passes all information to Tower class mentioned below
+
+Class: Tower (has Flyable Interface as an observer)
+also contains:
+register and unregister functions for aircrafts on simulation start and reaching a height of 0 through the use of two void functions
+conditionsChanged() function as void to note when a weather change has been triggered on a new simulation loop
+this class feeds information through use of the Flyable Interface
+
+We can add any function we may feel is missing ut we must have these, named as they are here, used as they are here

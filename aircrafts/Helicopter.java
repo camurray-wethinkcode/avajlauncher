@@ -23,68 +23,69 @@ public class Helicopter extends Aircraft implements Flyable
 			System.out.println(e);
 		}
 		String today = weatherTower.getWeather(coordinates);
-		switch(today)
+		if(today == "SUN")
 		{
-			case "SUN":
-				coordinates.changeHeight(coordinates.getHeight() + 2);
-				coordinates.changeLongitude(coordinates.getLongitude() + 10);
+			coordinates.changeHeight(coordinates.getHeight() + 2);
+			coordinates.changeLongitude(coordinates.getLongitude() + 10);
+			try
+			{
+				output.write("\nSimulation " + Integer.toString(i) + ": " + this.getClass().getSimpleName() + "#" + this.getName() + " (" + this.getId() + ")" + " Another sunny day for hovering! " + "(coordinates: height - " + this.coordinates.getHeight() + ", latitude - " + this.coordinates.getLatitude() + " , longitude - " + this.coordinates.getLongitude() + ")");
+			}
+			catch(IOException e)
+			{
+				System.out.println(e);
+			}
+		}
+		else if(today == "RAIN")
+		{
+			coordinates.changeLongitude(coordinates.getLongitude() + 5);
+			try
+			{
+				output.write("\nSimulation " + Integer.toString(i) + ": " + this.getClass().getSimpleName() + "#" + this.getName() + " (" + this.getId() + ")" + " I'm hovering in the rain! " + "      (coordinates: height - " + this.coordinates.getHeight() + ", latitude - " + this.coordinates.getLatitude() + " , longitude - " + this.coordinates.getLongitude() + ")");
+			}
+			catch(IOException e)
+			{
+				System.out.println(e);
+			}
+		}
+		else if(today == "FOG")
+		{
+			coordinates.changeLongitude(coordinates.getLongitude() + 1);
+			try
+			{
+				output.write("\nSimulation " + Integer.toString(i) + ": " + this.getClass().getSimpleName() + "#" + this.getName() + " (" + this.getId() + ")" + " I can't see my hover blades! " + "   (coordinates: height - " + this.coordinates.getHeight() + ", latitude - " + this.coordinates.getLatitude() + " , longitude - " + this.coordinates.getLongitude() + ")");
+			}
+			catch(IOException e)
+			{
+				System.out.println(e);
+			}
+		}
+		else
+		{
+			if(coordinates.getHeight() > 11)
+				coordinates.changeHeight(coordinates.getHeight() - 12);
+			else
+				coordinates.changeHeight(0);
+			try
+			{
+				output.write("\nSimulation " + Integer.toString(i) + ": " + this.getClass().getSimpleName() + "#" + this.getName() + " (" + this.getId() + ")" + " Hover blades covered in snow! " + "  (coordinates: height - " + this.coordinates.getHeight() + ", latitude - " + this.coordinates.getLatitude() + " , longitude - " + this.coordinates.getLongitude() + ")");
+			}
+			catch(IOException e)
+			{
+				System.out.println(e);
+			}
+			if(coordinates.getHeight() == 0)
+			{
 				try
 				{
-					output.write("\nSimulation " + Integer.toString(i) + ": " + this.getClass().getSimpleName() + "#" + this.getName() + " (" + this.getId() + ")" + " Another sunny day for hovering! " + "(coordinates: height - " + this.coordinates.getHeight() + ", latitude - " + this.coordinates.getLatitude() + " , longitude - " + this.coordinates.getLongitude() + ")");
+					output.write("\n" + this.getClass().getSimpleName() + " #" + this.getName() + " (" + this.getId() + ")" + " Landing... " + "                                   (coordinates: height - " + this.coordinates.getHeight() + ", latitude - " + this.coordinates.getLatitude() + " , longitude - " + this.coordinates.getLongitude() + ")");
 				}
 				catch(IOException e)
 				{
 					System.out.println(e);
 				}
-			break;
-			case "RAIN":
-				coordinates.changeLongitude(coordinates.getLongitude() + 5);
-				try
-				{
-					output.write("\nSimulation " + Integer.toString(i) + ": " + this.getClass().getSimpleName() + "#" + this.getName() + " (" + this.getId() + ")" + " I'm hovering in the rain! " + "      (coordinates: height - " + this.coordinates.getHeight() + ", latitude - " + this.coordinates.getLatitude() + " , longitude - " + this.coordinates.getLongitude() + ")");
-				}
-				catch(IOException e)
-				{
-					System.out.println(e);
-				}
-			break;
-			case "FOG":
-				coordinates.changeLongitude(coordinates.getLongitude() + 1);
-				try
-				{
-					output.write("\nSimulation " + Integer.toString(i) + ": " + this.getClass().getSimpleName() + "#" + this.getName() + " (" + this.getId() + ")" + " I can't see my hover blades! " + "   (coordinates: height - " + this.coordinates.getHeight() + ", latitude - " + this.coordinates.getLatitude() + " , longitude - " + this.coordinates.getLongitude() + ")");
-				}
-				catch(IOException e)
-				{
-					System.out.println(e);
-				}
-			break;
-			case "SNOW":
-				if(coordinates.getHeight() > 11)
-					coordinates.changeHeight(coordinates.getHeight() - 12);
-				else
-					coordinates.changeHeight(0);
-				try
-				{
-					output.write("\nSimulation " + Integer.toString(i) + ": " + this.getClass().getSimpleName() + "#" + this.getName() + " (" + this.getId() + ")" + " Hover blades covered in snow! " + "  (coordinates: height - " + this.coordinates.getHeight() + ", latitude - " + this.coordinates.getLatitude() + " , longitude - " + this.coordinates.getLongitude() + ")");
-				}
-				catch(IOException e)
-				{
-					System.out.println(e);
-				}
-				if(coordinates.getHeight() == 0)
-				{
-					try
-					{
-						output.write("\n" + this.getClass().getSimpleName() + " #" + this.getName() + " (" + this.getId() + ")" + " Landing... " + "                                   (coordinates: height - " + this.coordinates.getHeight() + ", latitude - " + this.coordinates.getLatitude() + " , longitude - " + this.coordinates.getLongitude() + ")");
-					}
-					catch(IOException e)
-					{
-						System.out.println(e);
-					}
-					weatherTower.unregister(this);
-				}
-			break;
+				weatherTower.unregister(this);
+			}
 		}
 	}
 	public void registerTower(WeatherTower weatherTower)

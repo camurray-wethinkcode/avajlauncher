@@ -40,7 +40,7 @@ public class Start
 					flyable.registerTower(weatherTower);
 				int i = 0;
 				output.write("\n");
-				while(i <= sim)
+				while(i < sim)
 				{
 					weatherTower.changeWeather(++i);
 					output.write("\n");

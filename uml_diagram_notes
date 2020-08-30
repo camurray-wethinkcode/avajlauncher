@@ -11,7 +11,7 @@ talks to the Flyable Interface
 Interface: Flyable (keeps a collection of abstract references tp methods together so classes can use this interface to inherit the abstract methods from it
 collects for inheritance (hence the dotted lines):
 updateConditions() function (of type void)
-registerTower(WeatherTower: WeatherTower) function (of type void)
+registerTower(WeatherTower: weatherTower) function (of type void)
 both functions must be present in each of our aeroplane files (baloon, helicopter and jetplane)
 
 Class: Helicopter (inherits from weatherTower: WeatherTower)

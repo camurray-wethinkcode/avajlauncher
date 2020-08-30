@@ -23,98 +23,99 @@ public class Baloon extends Aircraft implements Flyable
 			System.out.println(e);
 		}
 		String today = weatherTower.getWeather(coordinates);
-		switch(today)
+		if(today == "SUN")
 		{
-			case "SUN":
-				coordinates.changeHeight(coordinates.getHeight() + 4);
-				coordinates.changeLongitude(coordinates.getLongitude() + 2);
+			coordinates.changeHeight(coordinates.getHeight() + 4);
+			coordinates.changeLongitude(coordinates.getLongitude() + 2);
+			try
+			{
+				output.write("\nSimulation " + Integer.toString(i) + ": " + this.getClass().getSimpleName() + "#" + this.getName() + "     (" + this.getId() + ")" + " Another sunny day for floating! " + "(coordinates: height - " + this.coordinates.getHeight() + ", latitude - " + this.coordinates.getLongitude() + " , longitude - " + this.coordinates.getLatitude() + ")");
+			}
+			catch(IOException e)
+			{
+				System.out.println(e);
+			}
+		}
+		else if(today == "RAIN")
+		{
+			if(coordinates.getHeight() > 4)
+				coordinates.changeHeight(coordinates.getHeight() - 5);
+			else
+				coordinates.changeHeight(0);
+			try
+			{
+				output.write("\nSimulation " + Integer.toString(i) + ": " + this.getClass().getSimpleName() + "#" + this.getName() + "     (" + this.getId() + ")" + " I'm floating in the rain! " + "      (coordinates: height - " + this.coordinates.getHeight() + ", latitude - " + this.coordinates.getLongitude() + " , longitude - " + this.coordinates.getLatitude() + ")");
+			}
+			catch(IOException e)
+			{
+				System.out.println(e);
+			}
+			if(coordinates.getHeight() == 0)
+			{
 				try
 				{
-					output.write("\nSimulation " + Integer.toString(i) + ": " + this.getClass().getSimpleName() + "#" + this.getName() + "     (" + this.getId() + ")" + " Another sunny day for floating! " + "(coordinates: height - " + this.coordinates.getHeight() + ", latitude - " + this.coordinates.getLongitude() + " , longitude - " + this.coordinates.getLatitude() + ")");
+					output.write("\n" + this.getClass().getSimpleName() + " #" + this.getName() + " (" + this.getId() + ")" + " Landing.... " + "                                     (coordinates: height - " + this.coordinates.getHeight() + ", latitude - " + this.coordinates.getLongitude() + " , longitude - " + this.coordinates.getLatitude() + ")");
 				}
 				catch(IOException e)
 				{
 					System.out.println(e);
 				}
-			break;
-			case "RAIN":
-				if(coordinates.getHeight() > 4)
-					coordinates.changeHeight(coordinates.getHeight() - 5);
-				else
-					coordinates.changeHeight(0);
+				weatherTower.unregister(this);
+			}
+		}
+		else if(today == "FOG")
+		{
+			if(coordinates.getHeight() > 2)
+				coordinates.changeHeight(coordinates.getHeight() - 3);
+			else
+				coordinates.changeHeight(0);
+			try
+			{
+				output.write("\nSimulation " + Integer.toString(i) + ": " + this.getClass().getSimpleName() + "#" + this.getName() + "     (" + this.getId() + ")" + " I can't see the view! " + "          (coordinates: height - " + this.coordinates.getHeight() + ", latitude - " + this.coordinates.getLongitude() + " , longitude - " + this.coordinates.getLatitude() + ")");
+			}
+			catch(IOException e)
+			{
+				System.out.println(e);
+			}
+			if(coordinates.getHeight() == 0)
+			{
 				try
 				{
-					output.write("\nSimulation " + Integer.toString(i) + ": " + this.getClass().getSimpleName() + "#" + this.getName() + "     (" + this.getId() + ")" + " I'm floating in the rain! " + "      (coordinates: height - " + this.coordinates.getHeight() + ", latitude - " + this.coordinates.getLongitude() + " , longitude - " + this.coordinates.getLatitude() + ")");
+					output.write("\n" + this.getClass().getSimpleName() + " #" + this.getName() + " (" + this.getId() + ")" + " Landing.... " + "                                       (coordinates: height - " + this.coordinates.getHeight() + ", latitude - " + this.coordinates.getLongitude() + " , longitude - " + this.coordinates.getLatitude() + ")");
 				}
 				catch(IOException e)
 				{
 					System.out.println(e);
 				}
-				if(coordinates.getHeight() == 0)
-				{
-					try
-					{
-						output.write("\n" + this.getClass().getSimpleName() + " #" + this.getName() + " (" + this.getId() + ")" + " Landing.... " + "                                     (coordinates: height - " + this.coordinates.getHeight() + ", latitude - " + this.coordinates.getLongitude() + " , longitude - " + this.coordinates.getLatitude() + ")");
-					}
-					catch(IOException e)
-					{
-						System.out.println(e);
-					}
-					weatherTower.unregister(this);
-				}
-			break;
-			case "FOG":
-				if(coordinates.getHeight() > 2)
-					coordinates.changeHeight(coordinates.getHeight() - 3);
-				else
-					coordinates.changeHeight(0);
+				weatherTower.unregister(this);
+			}
+		}
+		else
+		{
+			if(coordinates.getHeight() > 14)
+				coordinates.changeHeight(coordinates.getHeight() - 15);
+			else
+				coordinates.changeHeight(0);
+			try
+			{
+				output.write("\nSimulation " + Integer.toString(i) + ": " + this.getClass().getSimpleName() + "#" + this.getName() + "     (" + this.getId() + ")" + " Six feet deep in snow! " + "         (coordinates: height - " + this.coordinates.getHeight() + ", latitude - " + this.coordinates.getLongitude() + " , longitude - " + this.coordinates.getLatitude() + ")");
+			}
+			catch(IOException e)
+			{
+				System.out.println(e);
+			}
+			if(coordinates.getHeight() == 0)
+			{
 				try
 				{
-					output.write("\nSimulation " + Integer.toString(i) + ": " + this.getClass().getSimpleName() + "#" + this.getName() + "     (" + this.getId() + ")" + " I can't see the view! " + "          (coordinates: height - " + this.coordinates.getHeight() + ", latitude - " + this.coordinates.getLongitude() + " , longitude - " + this.coordinates.getLatitude() + ")");
+					output.write("\n" + this.getClass().getSimpleName() + " #" + this.getName() + " (" + this.getId() + ")" + " Landing...." + "                                       (coordinates: height - " + this.coordinates.getHeight() + ", latitude - " + this.coordinates.getLongitude() + " , longitude - " + this.coordinates.getLatitude() + ")");
 				}
 				catch(IOException e)
 				{
 					System.out.println(e);
 				}
-				if(coordinates.getHeight() == 0)
-				{
-					try
-					{
-						output.write("\n" + this.getClass().getSimpleName() + " #" + this.getName() + " (" + this.getId() + ")" + " Landing.... " + "                                       (coordinates: height - " + this.coordinates.getHeight() + ", latitude - " + this.coordinates.getLongitude() + " , longitude - " + this.coordinates.getLatitude() + ")");
-					}
-					catch(IOException e)
-					{
-						System.out.println(e);
-					}
-					weatherTower.unregister(this);
-				}
-			break;
-			case "SNOW":
-				if(coordinates.getHeight() > 14)
-					coordinates.changeHeight(coordinates.getHeight() - 15);
-				else
-					coordinates.changeHeight(0);
-				try
-				{
-					output.write("\nSimulation " + Integer.toString(i) + ": " + this.getClass().getSimpleName() + "#" + this.getName() + "     (" + this.getId() + ")" + " Six feet deep in snow! " + "         (coordinates: height - " + this.coordinates.getHeight() + ", latitude - " + this.coordinates.getLongitude() + " , longitude - " + this.coordinates.getLatitude() + ")");
-				}
-				catch(IOException e)
-				{
-					System.out.println(e);
-				}
-				if(coordinates.getHeight() == 0)
-				{
-					try
-					{
-						output.write("\n" + this.getClass().getSimpleName() + " #" + this.getName() + " (" + this.getId() + ")" + " Landing...." + "                                       (coordinates: height - " + this.coordinates.getHeight() + ", latitude - " + this.coordinates.getLongitude() + " , longitude - " + this.coordinates.getLatitude() + ")");
-					}
-					catch(IOException e)
-					{
-						System.out.println(e);
-					}
-					weatherTower.unregister(this);
-				}
-			break;
+				weatherTower.unregister(this);
+			}
 		}
 	}
 	public void registerTower(WeatherTower weatherTower)
